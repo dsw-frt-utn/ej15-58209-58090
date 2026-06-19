@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Dsw2026Ej15.Domain
 {
-    internal class BaseEntity
+    public class BaseEntity
     {
+        public Guid id {  get; set; }
     }
 }

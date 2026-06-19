@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Dsw2026Ej15.Domain
 {
-    internal class Doctor
+    public class Doctor : BaseEntity
     {
+        public string name { get; set; }
+        public string licenseNumber { get; set; }
+        public bool isActive { get; set; }
+        public Speciality speciality { get; set; }
     }
 }
