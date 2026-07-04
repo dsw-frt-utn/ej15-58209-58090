@@ -15,33 +15,33 @@ namespace Dsw2026Ej15.Api.Controllers
             persistenceInMemory = persistence;
         }
         [HttpPost]
-        public ActionResult<string> insertarDoctor([FromBody] DoctorBody doctor)
+        public async Task<ActionResult<string>> insertarDoctorAsync([FromBody] DoctorBody doctor)
         {
             Doctor doctor1 = new Doctor();
             doctor1.name = doctor.Name;
             doctor1.isActive = true;
             doctor1.id = Guid.NewGuid();
-            doctor1.speciality = persistenceInMemory.GetSpecialityById(doctor.SpecialityId).Result;
+            doctor1.speciality = await persistenceInMemory.GetSpecialityById(doctor.SpecialityId);
             doctor1.licenseNumber = doctor.LicenseNumber;
             persistenceInMemory.addDoctor(doctor1);
             return Created();
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Doctor>> obtenerDoctoresActivos()
+        public async Task<ActionResult<IEnumerable<Doctor>>> obtenerDoctoresActivosAsync()
         {
             List<Doctor> doctores = new List<Doctor>();
-            doctores = persistenceInMemory.getActiveDoctors().Result;
+            doctores = await persistenceInMemory.getActiveDoctors();
             return Ok(doctores);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Doctor> obtenerDoctorPorId(Guid id)
+        public async Task<ActionResult<Doctor>> obtenerDoctorPorIdAsync(Guid id)
         {
             Doctor? doctor = null;
             try
             {
-                doctor = persistenceInMemory.getDoctorById(id).Result;
+                doctor = await persistenceInMemory.getDoctorById(id);
             }
             catch (Exception ex)
             {
@@ -51,11 +51,11 @@ namespace Dsw2026Ej15.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<string> deshabilitarDoctor(Guid id)
+        public async Task<ActionResult<string>> deshabilitarDoctorAsync(Guid id)
         {
             try
             {
-                persistenceInMemory.disableDoctor(persistenceInMemory.getDoctorById(id).Result);
+                await persistenceInMemory.disableDoctor(await persistenceInMemory.getDoctorById(id));
                 return NoContent();
             }
             catch (Exception ex)

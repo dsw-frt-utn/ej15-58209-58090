@@ -9,6 +9,13 @@ namespace Dsw2026Ej15.Domain
         public string name { get; set; }
         public string licenseNumber { get; set; }
         public bool isActive { get; set; }
+
+        public Guid? SpecialityId { get; set; }
         public Speciality speciality { get; set; }
+
+        public Doctor()
+        {
+
+        }
     }
 }

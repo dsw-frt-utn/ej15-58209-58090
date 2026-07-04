@@ -8,5 +8,6 @@ namespace Dsw2026Ej15.Domain
     {
         public string name { get; set; }
         public string description { get; set; }
+        public Speciality () {}
     }
 }
